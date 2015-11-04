@@ -23,6 +23,7 @@ class ResearchDownloader(object):
     relative_download_dirs = []
 
     def __init__(self):
+        print('> Gathering search criteria...')
         self.get_search_criteria()
         self.make_sure_path_exists(DOWNLOAD_PATH)
         for criteria in self.search_criteria:
@@ -32,18 +33,33 @@ class ResearchDownloader(object):
         """
         Collects search criteria from local file params.txt
         """
-        with open(SEARCH_PARAMETERS_FILE, 'r+') as f:
-                for line in f:
-                    full_terms = ''
-                    search_terms = line.split(' ')
+        try:
+            with open(SEARCH_PARAMETERS_FILE, 'r+') as f:
+                    for line in f:
+                        print(
+                            '> Adding terms to queue: "{}"'
+                            .format(line)
+                        )
+                        full_terms = ''
+                        search_terms = line.split(' ')
 
-                    for idx, term in enumerate(search_terms):
-                        if idx != (len(search_terms) - 1):
-                            full_terms += term + '+'
-                        else:
-                            full_terms += term
+                        for idx, term in enumerate(search_terms):
+                            if idx != (len(search_terms) - 1):
+                                full_terms += term + '+'
+                            else:
+                                full_terms += term
 
-                    self.search_criteria.append(full_terms)
+                        self.search_criteria.append(full_terms)
+        except OSError:
+            raise OSError(
+                """
+                Search parameters file params.txt doesn't seem to
+                be present in the root directory of this program. Have
+                you read the README.md and created this file accordingly?
+                Also, make sure permissions are set for reading and
+                writing throughout this project's directory.
+                """
+            )
 
     def download_research(self, criteria):
         """
@@ -56,9 +72,28 @@ class ResearchDownloader(object):
         full_destination = \
             DOWNLOAD_PATH + criteria.replace('+', '_') + '_research.zip'
 
+        print(
+            '> Downloading archive of results for parameters "{}"'
+            .format(criteria)
+        )
+
         self.download_file(full_download_url, full_destination)
 
-        self.extract_zip_contents(full_destination)
+        print(
+            '> Extracting contents of archive of results for parameters "{}"'
+            .format(criteria)
+        )
+
+        downloaded_dir = self.extract_zip_contents(full_destination)
+
+        print(
+            '> Results for parameters "{}" stored in /downloads/{}/'
+            .format(criteria, downloaded_dir)
+        )
+
+        self.relative_download_dirs.append(
+            downloaded_dir
+        )
 
         os.remove(full_destination)
 
@@ -100,6 +135,8 @@ class ResearchDownloader(object):
 
                 zf = zipfile.ZipFile(saved_zip)
                 zf.extractall(DESTINATION_DIR)
+
+                return DESTINATION_DIR.split('/')[-2]
         except IOError:
             raise IOError(
                 'ERROR: Could not extract files from .zip research archive.'
