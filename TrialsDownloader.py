@@ -1,4 +1,6 @@
 """
+Author: Joseph P DeBartola III
+
 Usage: (in adjacent script) from TrialsDownloader import x
 
 This script contains a class which, given specified search criteria,

@@ -1,4 +1,6 @@
 """
+Author: Joseph P DeBartola III
+
 Usage: (in adjacent script) from XMLToDataFrame import x
 
 This script contains a class which, given an XML file,

@@ -1,4 +1,6 @@
 """
+Author: Joseph P DeBartola III
+
 Usage: main.py
 Usage with arguments: main.py --explicit-terms=<terms>
 ( For details on formatting terms in argument, see README.md)
