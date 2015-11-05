@@ -23,6 +23,9 @@ DOWNLOAD_PATH = BASE_PATH + '/downloads/'
 
 
 class Main(object):
+    """
+    Encapsulated main execution script.
+    """
     terms = None
 
     def __init__(self, argv):
@@ -46,6 +49,11 @@ class Main(object):
         self.extract_research()
 
     def download_research(self):
+        """
+        Creates an instance of TrialsDownloader class
+        and downloads trial records relevant to
+        specified criteria.
+        """
         rd = TrialsDownloader(terms=self.terms)
         try:
             rd.make_sure_path_exists(EXTRACT_PATH.strip('/'))
@@ -59,6 +67,13 @@ class Main(object):
             )
 
     def extract_research(self):
+        """
+        Extracts trial records from XML files and
+        exports it to Dataframes which are concatenated
+        into one large dataframe and then saved as
+        pickle (.pkl) files, which is probably
+        the neatest way to store DataFrames.
+        """
         xtdf = XMLToDataFrame()
 
         print('> Collecting extracted XML files...')
@@ -102,6 +117,10 @@ class Main(object):
         print('> Dataframes saved!')
 
     def get_xml_file_list(self, dir_name):
+        """
+        Get paths to xml files given a
+        containing directory.
+        """
         xml_files = []
 
         xml_pat = re.compile('\.xml$')

@@ -6,7 +6,7 @@
 This program downloads research of specified criteria from clinicaltrials.gov and stores said research in Pandas DataFrames on disk.
 
 
-## Installation
+## Installation and Execution
 
 Once cloned from the repository, you will need to be able to run Python 3 with a few additional libraries installed. If you do not have Python 3 installed, now is a great time to install it. Thankfully, Pip makes installation of these really easy once the program has been downloaded with the reuirements file in the root-level directory of the repository folder (If you haven't set up a virtual environment yet, please read below first):
 ```
@@ -94,3 +94,16 @@ python main.py --explicit-terms=brain+tumor_seizure
 ```
 
 ...with parts of a search term combined by '+' and separate terms delimited by '_'.
+
+
+## Reading Stored DataFrames
+
+This part is easy!
+
+Pandas has functionality for storing DataFrames to and reading DataFrames from pickle (.pkl) files built in.
+
+```
+import pandas as pd
+
+df = pd.read_pickle('path/to/pickle/file')
+```
