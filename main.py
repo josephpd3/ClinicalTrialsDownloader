@@ -33,9 +33,9 @@ BASE_PATH = os.path.dirname(
     os.path.abspath(__file__)
 )
 
-EXTRACT_PATH = BASE_PATH + '/extracted/'
+EXTRACT_PATH = os.path.join(BASE_PATH, 'extracted')
 
-DOWNLOAD_PATH = BASE_PATH + '/downloads/'
+DOWNLOAD_PATH = os.path.join(BASE_PATH, 'downloads')
 
 
 class Main(object):
@@ -72,7 +72,7 @@ class Main(object):
         """
         rd = TrialsDownloader(terms=self.terms)
         try:
-            rd.make_sure_path_exists(EXTRACT_PATH.strip('/'))
+            rd.make_sure_path_exists(EXTRACT_PATH)
         except OSError:
             raise OSError(
                 """
@@ -94,13 +94,16 @@ class Main(object):
 
         print('> Collecting extracted XML files...')
 
-        research_directories = [DOWNLOAD_PATH + d for d
+        research_directories = [os.path.join(DOWNLOAD_PATH, d)
+                                for d
                                 in os.listdir(DOWNLOAD_PATH)
-                                if os.path.isdir(DOWNLOAD_PATH + d)]
+                                if os.path.isdir(
+                                    os.path.join(DOWNLOAD_PATH, d)
+                                )]
 
         for rdir in research_directories:
             rdir_full_path = rdir
-            dir_name = rdir.split('/')[-1]
+            dir_name = os.path.basename(rdir)
             files = self.get_xml_file_list(rdir)
 
             print('> Creating DataFrames for {}'.format(dir_name))
@@ -116,8 +119,9 @@ class Main(object):
             combined_dataframe = pd.concat(dataframes)
 
             try:
+                pickle_name = dir_name + '.pkl'
                 combined_dataframe.to_pickle(
-                    EXTRACT_PATH + dir_name + '.pkl'
+                    os.path.join(EXTRACT_PATH, pickle_name)
                 )
             except Exception:
                 raise IOError(
@@ -141,7 +145,7 @@ class Main(object):
 
         xml_pat = re.compile('\.xml$')
 
-        files = [dir_name + '/' + xf
+        files = [os.path.join(dir_name, xf)
                  for xf
                  in os.listdir(dir_name)
                  if xml_pat.search(xf) is not None]

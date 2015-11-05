@@ -21,8 +21,8 @@ BASE_PATH = os.path.dirname(
     os.path.abspath(__file__)
 )
 
-DOWNLOAD_PATH = BASE_PATH + '/downloads/'
-SEARCH_PARAMETERS_FILE = BASE_PATH + '/params.txt'
+DOWNLOAD_PATH = os.path.join(BASE_PATH, 'downloads')
+SEARCH_PARAMETERS_FILE = os.path.join(BASE_PATH, 'params.txt')
 
 
 class TrialsDownloader(object):
@@ -48,7 +48,7 @@ class TrialsDownloader(object):
             term_list = terms.split('_')
             self.search_criteria.extend(term_list)
 
-        self.make_sure_path_exists(DOWNLOAD_PATH.strip('/'))
+        self.make_sure_path_exists(DOWNLOAD_PATH)
         for criteria in self.search_criteria:
             self.download_research(criteria)
 
@@ -93,8 +93,11 @@ class TrialsDownloader(object):
         in the project folder.
         """
         full_download_url = self.get_download_url(criteria)
+        zip_name = criteria.replace('+', '_') + '_trials.zip'
         full_destination = \
-            DOWNLOAD_PATH + criteria.replace('+', '_') + '_trials.zip'
+            os.path.join(
+                DOWNLOAD_PATH, zip_name
+            )
 
         print(
             '> Downloading archive of results for parameters "{}"'
@@ -154,13 +157,13 @@ class TrialsDownloader(object):
         """
         try:
             with open(path, 'rb') as saved_zip:
-                DESTINATION_DIR = path.replace('.zip', '/')
+                DESTINATION_DIR = path.replace('.zip', '')
                 self.make_sure_path_exists(DESTINATION_DIR)
 
                 zf = zipfile.ZipFile(saved_zip)
                 zf.extractall(DESTINATION_DIR)
 
-                return DESTINATION_DIR.split('/')[-2]
+                return os.path.basename(DESTINATION_DIR)
         except IOError:
             raise IOError(
                 'Could not extract files from .zip trials archive.'
