@@ -118,4 +118,4 @@ I started out with a complex Scrapy implementation which juggled FormRequests, b
 
 I hope you get as much use out of this as you desire and more!
 
-If you have any questions about this project, my implementation, or are conflicted with any bugs, **please** email me [here](josephdebartola@gmail.com).
+If you have any questions about this project, my implementation, or are conflicted with any bugs, **please** email me [here](mailto:josephdebartola@gmail.com).
