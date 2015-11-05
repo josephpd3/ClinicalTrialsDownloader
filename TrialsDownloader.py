@@ -12,7 +12,7 @@ DOWNLOAD_PATH = BASE_PATH + '/downloads/'
 SEARCH_PARAMETERS_FILE = BASE_PATH + '/params.txt'
 
 
-class ResearchDownloader(object):
+class TrialsDownloader(object):
     """
     This collects research from clinicaltrials.gov as specified
     by the criteria designated within the adjacent text file
@@ -22,10 +22,16 @@ class ResearchDownloader(object):
     search_criteria = []
     relative_download_dirs = []
 
-    def __init__(self):
+    def __init__(self, terms=None):
         print('> Gathering search criteria...')
-        self.get_search_criteria()
-        self.make_sure_path_exists(DOWNLOAD_PATH)
+
+        if terms is None:
+            self.get_search_criteria()
+        else:
+            term_list = terms.split('_')
+            self.search_criteria.extend(term_list)
+
+        self.make_sure_path_exists(DOWNLOAD_PATH.strip('/'))
         for criteria in self.search_criteria:
             self.download_research(criteria)
 
@@ -71,7 +77,7 @@ class ResearchDownloader(object):
         """
         full_download_url = self.get_download_url(criteria)
         full_destination = \
-            DOWNLOAD_PATH + criteria.replace('+', '_') + '_research.zip'
+            DOWNLOAD_PATH + criteria.replace('+', '_') + '_trials.zip'
 
         print(
             '> Downloading archive of results for parameters "{}"'
@@ -121,7 +127,7 @@ class ResearchDownloader(object):
                     if chunk:
                         f.write(chunk)
         except IOError:
-            raise IOError('Could not write downloaded research to disk.')
+            raise IOError('Could not write downloaded trials to disk.')
 
     def extract_zip_contents(self, path):
         """
@@ -140,7 +146,7 @@ class ResearchDownloader(object):
                 return DESTINATION_DIR.split('/')[-2]
         except IOError:
             raise IOError(
-                'Could not extract files from .zip research archive.'
+                'Could not extract files from .zip trials archive.'
             )
 
     def make_sure_path_exists(self, path):

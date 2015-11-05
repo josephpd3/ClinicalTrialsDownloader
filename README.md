@@ -1,17 +1,18 @@
 # Clinical Trials Research Downloader
 
 
-### Summary
+## Summary
 
 This program downloads research of specified criteria from clinicaltrials.gov and stores said research in Pandas DataFrames on disk.
 
 
-### Installation
+## Installation
 
 Once cloned from the repository, you will need to be able to run Python 3 with a few additional libraries installed. If you do not have Python 3 installed, now is a great time to install it. Thankfully, Pip makes installation of these really easy once the program has been downloaded with the reuirements file in the root-level directory of the repository folder (If you haven't set up a virtual environment yet, please read below first):
 ```
 pip install -r requirements.txt
 ```
+
 
 It is recommended, however that you set up a virtual environment for this.
 
@@ -28,6 +29,7 @@ virtualenv ../venv --python=path/to/Python3
 
 This will mask all calls to Pip and Python with that respective version of python, and will encapsulate all the libraries you want installed within the virtual environment so you can have a "virtualenv" prepared for every program or project.
 
+
 You can activate the environment with:
 ```
 source ../venv/bin/activate
@@ -37,11 +39,19 @@ and deactivate it with:
 deactivate
 ```
 
+
 Now that your virtual environment is configured, activate it and run:
 ```
 pip install -r requirements.txt
 ```
 ...and your program should be ready to run!
+
+
+To run the program, simply navigate to the repository directory in the terminal and type:
+```
+python main.py
+```
+
 
 
 If you want to automate the program, possibly via cron job, through the env, instead of calling python normally you can do:
@@ -51,7 +61,11 @@ If you want to automate the program, possibly via cron job, through the env, ins
 ...with the Python command dependent on which python you initialized the virtual environment with.
 
 
-### Specifying Search Parameters
+## Specifying Search Parameters
+
+
+
+#### Via *params.txt*:
 
 This program can download research for any number of criteria as specified in a text file in the root directory of the program titled *params.txt*.
 
@@ -67,4 +81,16 @@ seizure
 brain tumor
 ```
 
+
 Once this file is in place, just run the program as normal and it will retrieve all the relevant research!
+
+
+
+#### Explicitly via the command line:
+
+When running the program from the terminal, you can also override the use of *params.txt* by specifying parameters as such:
+```
+python main.py --explicit-terms=brain+tumor_seizure
+```
+
+...with parts of a search term combined by '+' and separate terms delimited by '_'.

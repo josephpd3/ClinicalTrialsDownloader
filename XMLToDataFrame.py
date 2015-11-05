@@ -1,5 +1,5 @@
-import pandas
-import json
+import pandas as pd
+import copy
 import xml.etree.ElementTree as etree
 
 
@@ -67,14 +67,8 @@ class XMLToDataFrame(object):
     Once initialized, store the contents of an XML file in this
     class with XMLToDataFrame.parse_xml_file().
 
-    After the contents are stored, export them with one of
-    three options:
-
-    - DataFrame with nested Python Native Dictionaries
-
-    - DataFrame with nested JSON string objects
-
-    - DataFrame with nested DataFrames
+    After the contents are stored, export them as a Dataframe with
+    XMLToDataFrame.to_dataframe().
 
     """
     tree_dict = {}
@@ -107,26 +101,12 @@ class XMLToDataFrame(object):
                 returned_list = self.parse_multiple_tags(tags)
                 self.tree_dict[item] = returned_list
 
-    def to_nested_dicts(self):
+    def to_dataframe(self):
         """
-        Returns the internal reference tree as a
-        dataframe with nested python dictionaries.
+        Converts reference dict into a nicely formatted Dataframe.
         """
-        pass
-
-    def to_nested_json(self):
-        """
-        Returns the internal reference tree as a
-        dataframe with nested json string objects.
-        """
-        pass
-
-    def to_nested_dataframes(self):
-        """
-        Returns the internal reference tree as a
-        dataframe with nested dataframes.
-        """
-        pass
+        copied_dict = copy.deepcopy(self.tree_dict)
+        return pd.io.json.json_normalize(copied_dict)
 
     def parse_singleton_tag(self, tag):
         """
