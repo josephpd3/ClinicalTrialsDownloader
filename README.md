@@ -3,7 +3,7 @@
 
 ## Summary
 
-This program downloads research of specified criteria from clinicaltrials.gov and stores said research in Pandas DataFrames on disk.
+This program downloads clinical trial details pertaining to specified criteria from clinicaltrials.gov and stores said data in Pandas DataFrames on disk.
 
 
 ## Installation and Execution
@@ -67,7 +67,7 @@ If you want to automate the program, possibly via cron job, through the env, ins
 
 #### Via *params.txt*:
 
-This program can download research for any number of criteria as specified in a text file in the root directory of the program titled *params.txt*.
+This program can download trials for any number of criteria as specified in a text file in the root directory of the program titled *params.txt*.
 
 Each line of this file specifies separate search criteria which will be used
 to gather results for that criteria in a folder within *root_directory*/downloads/*criteria*.
@@ -94,6 +94,8 @@ python main.py --explicit-terms=brain+tumor_seizure
 ```
 
 ...with parts of a search term combined by '+' and separate terms delimited by '_'.
+
+The command above would download trials for both "brain tumor" and "seizure".
 
 
 ## Reading Stored DataFrames
