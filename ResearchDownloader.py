@@ -36,6 +36,7 @@ class ResearchDownloader(object):
         try:
             with open(SEARCH_PARAMETERS_FILE, 'r+') as f:
                     for line in f:
+                        line = line.strip()
                         print(
                             '> Adding terms to queue: "{}"'
                             .format(line)
@@ -139,7 +140,7 @@ class ResearchDownloader(object):
                 return DESTINATION_DIR.split('/')[-2]
         except IOError:
             raise IOError(
-                'ERROR: Could not extract files from .zip research archive.'
+                'Could not extract files from .zip research archive.'
             )
 
     def make_sure_path_exists(self, path):
