@@ -30,7 +30,11 @@ class TrialsDownloader(object):
     This collects research from clinicaltrials.gov as specified
     by the criteria designated within the adjacent text file
     params.txt. For instructions on how to format this file,
-    please see README.md
+    please see README.md.
+
+    If terms is specified upon initialization,
+    usage of params.txt is overridden and the passed
+    terms are utilized.
     """
     search_criteria = []
     relative_download_dirs = []
