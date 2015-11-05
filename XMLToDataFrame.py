@@ -1,3 +1,12 @@
+"""
+Usage: (in adjacent script) from XMLToDataFrame import x
+
+This script contains a class which, given an XML file,
+parses its internal tree into a Python dictionary, and
+allows the user to export this referential dicitonary
+as a pandas DataFrame.
+"""
+
 import pandas as pd
 import copy
 import xml.etree.ElementTree as etree

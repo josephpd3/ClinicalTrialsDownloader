@@ -1,5 +1,5 @@
 """
-Usage: (in adjacent script) from ResearchDownloader import x
+Usage: (in adjacent script) from TrialsDownloader import x
 
 This script contains a class which, given specified search criteria,
 formats said criteria into an url utilized to download clinical trial
