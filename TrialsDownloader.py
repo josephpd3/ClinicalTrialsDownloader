@@ -1,3 +1,14 @@
+"""
+Usage: (in adjacent script) from ResearchDownloader import x
+
+This script contains a class which, given specified search criteria,
+formats said criteria into an url utilized to download clinical trial
+details from clinicaltrials.gov. in a .zip file.
+
+The script then extracts the .xml files within and stores the in the
+adjacent /downloads/ folder.
+"""
+
 import requests
 import os
 import zipfile

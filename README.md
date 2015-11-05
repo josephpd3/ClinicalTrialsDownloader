@@ -3,7 +3,7 @@
 
 ## Summary
 
-This program downloads clinical trial details pertaining to specified criteria from clinicaltrials.gov and stores said data in Pandas DataFrames on disk.
+**This program downloads clinical trial details pertaining to specified criteria from clinicaltrials.gov and stores said data in Pandas DataFrames on disk in the contained /extracted/ directory.**
 
 
 ## Installation and Execution
@@ -14,7 +14,7 @@ pip install -r requirements.txt
 ```
 
 
-It is recommended, however that you set up a virtual environment for this.
+**It is recommended, however that you set up a virtual environment for this.**
 
 To do this, you will need to install virtualenv via pip. It's pretty easy to do:
 (On Windows exclude the *sudo*)
@@ -46,6 +46,8 @@ pip install -r requirements.txt
 ```
 ...and your program should be ready to run!
 
+
+**Before running, make sure that you've created two directories within the root level of the repository names /downloads/ and /extracted/ and given general write access to both of these.**
 
 To run the program, simply navigate to the repository directory in the terminal and type:
 ```
@@ -100,7 +102,7 @@ The command above would download trials for both "brain tumor" and "seizure".
 
 ## Reading Stored DataFrames
 
-This part is easy!
+**This part is easy!**
 
 Pandas has functionality for storing DataFrames to and reading DataFrames from pickle (.pkl) files built in.
 

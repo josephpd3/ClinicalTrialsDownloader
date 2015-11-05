@@ -1,3 +1,17 @@
+"""
+Usage: main.py
+Usage with arguments: main.py --explicit-terms=<terms>
+( For details on formatting terms in argument, see README.md)
+
+This script contains the main script for ct-research-downloader.
+Run this one.
+
+This utilizes the classes TrialsDownloader and XMLToDataFrame
+to gather data from clinicaltrials.gov, compile it into
+Pandas DataFrames from XML files, and export it into the
+adjacent /extracted/ directory in pickle file (.pkl) form.
+"""
+
 from TrialsDownloader import TrialsDownloader
 from XMLToDataFrame import XMLToDataFrame
 
