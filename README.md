@@ -47,7 +47,7 @@ pip install -r requirements.txt
 ...and your program should be ready to run!
 
 
-**Before running, make sure that you've created two directories within the root level of the repository names /downloads/ and /extracted/ and given general write access to both of these.**
+**Before running, make sure that you've created two directories within the root level of the repository named /downloads/ and /extracted/ and given general write access to both of these.**
 
 To run the program, simply navigate to the repository directory in the terminal and type:
 ```
