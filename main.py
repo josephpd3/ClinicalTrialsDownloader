@@ -134,6 +134,7 @@ class Main(object):
             else:
                 shutil.rmtree(rdir_full_path)
 
+        print('> Clearing out downloads folder...')
         print('> Dataframes saved!')
 
     def get_xml_file_list(self, dir_name):

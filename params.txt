@@ -1,1 +1,3 @@
-eye tumor
+brain tumor
+heart murmur
+amphetamine overdose
