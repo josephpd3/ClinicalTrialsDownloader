@@ -114,7 +114,7 @@ df = pd.read_pickle('path/to/pickle/file')
 
 ## Final Notes
 
-I started out with a complex Scrapy implementation which juggled FormRequests, but once I realized both the forms utilized GET I ditched the bulk of Scrapy and lord knows how many unnecessary dependedncies and went with *only two* dependencies outside of pip and virtualenv: **Pandas** and **Requests**. This may be irrelevant to the end user, but I am very proud of when I can churn out a more lightweight solution.
+I started out with a complex Scrapy implementation which juggled FormRequests, but once I realized both the forms utilized GET I ditched the bulk of Scrapy and lord knows how many unnecessary dependencies and went with *only two dependencies* outside of pip and virtualenv: **Pandas** and **Requests**. This may be irrelevant to the end user, but I am very proud of when I can churn out a more lightweight solution.
 
 I hope you get as much use out of this as you desire and more!
 
