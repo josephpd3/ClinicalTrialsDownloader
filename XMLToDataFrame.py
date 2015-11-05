@@ -83,6 +83,12 @@ class XMLToDataFrame(object):
         pass
 
     def parse_xml_file(self, path):
+        """
+        For every tag in the reference list, searches
+        the XML file--whose respective path was passed
+        in--and creates an item for that path in the
+        reference dictionary internal to this class.
+        """
         tree = etree.parse(path)
         root = tree.getroot()
 
@@ -102,15 +108,32 @@ class XMLToDataFrame(object):
                 self.tree_dict[item] = returned_list
 
     def to_nested_dicts(self):
+        """
+        Returns the internal reference tree as a
+        dataframe with nested python dictionaries.
+        """
         pass
 
     def to_nested_json(self):
+        """
+        Returns the internal reference tree as a
+        dataframe with nested json string objects.
+        """
         pass
 
     def to_nested_dataframes(self):
+        """
+        Returns the internal reference tree as a
+        dataframe with nested dataframes.
+        """
         pass
 
     def parse_singleton_tag(self, tag):
+        """
+        Recursively parses a single tag instance,
+        returning a dictionary containing all of
+        its children parsed into dictionaries.
+        """
         if len(tag) is 0:
             return {tag.tag: tag.text}
         else:
@@ -121,6 +144,12 @@ class XMLToDataFrame(object):
             return tag_dict
 
     def parse_multiple_tags(self, tags):
+        """
+        Cycles through a list of identical tags,
+        passing them to XMLToDataFrame.parse_singleton_tag()
+        and appending the returned dictionary to a list,
+        which is then returned upon completion.
+        """
         tag_group = []
         for tag in tags:
             tag_dict = self.parse_singleton_tag(tag)
