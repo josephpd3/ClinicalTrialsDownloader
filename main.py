@@ -43,6 +43,7 @@ class Main(object):
     Encapsulated main execution script.
     """
     terms = None
+    trials_downloader = None
 
     def __init__(self, argv):
         """
@@ -70,9 +71,9 @@ class Main(object):
         and downloads trial records relevant to
         specified criteria.
         """
-        rd = TrialsDownloader(terms=self.terms)
+        self.trials_downloader = TrialsDownloader(terms=self.terms)
         try:
-            rd.make_sure_path_exists(EXTRACT_PATH)
+            self.trials_downloader.make_sure_path_exists(EXTRACT_PATH)
         except OSError:
             raise OSError(
                 """
@@ -94,18 +95,15 @@ class Main(object):
         df_saved = False
 
         research_directories = [os.path.join(DOWNLOAD_PATH, d)
-                                for d
-                                in os.listdir(DOWNLOAD_PATH)
-                                if os.path.isdir(
-                                    os.path.join(DOWNLOAD_PATH, d)
-                                )]
+                                for d in
+                                self.trials_downloader.relative_download_dirs]
 
         for rdir in research_directories:
             rdir_full_path = rdir
             dir_name = os.path.basename(rdir)
 
             print('> Collecting extracted XML files...')
-            
+
             files = self.get_xml_file_list(rdir)
 
             print('> Creating DataFrames for {}'.format(dir_name))
