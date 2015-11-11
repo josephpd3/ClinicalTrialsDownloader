@@ -91,8 +91,7 @@ class Main(object):
         the neatest way to store DataFrames.
         """
         xtdf = XMLToDataFrame()
-
-        print('> Collecting extracted XML files...')
+        df_saved = False
 
         research_directories = [os.path.join(DOWNLOAD_PATH, d)
                                 for d
@@ -104,6 +103,9 @@ class Main(object):
         for rdir in research_directories:
             rdir_full_path = rdir
             dir_name = os.path.basename(rdir)
+
+            print('> Collecting extracted XML files...')
+            
             files = self.get_xml_file_list(rdir)
 
             print('> Creating DataFrames for {}'.format(dir_name))
@@ -132,10 +134,13 @@ class Main(object):
                     """
                 )
             else:
+                df_saved = True
                 shutil.rmtree(rdir_full_path)
 
         print('> Clearing out downloads folder...')
-        print('> Dataframes saved!')
+
+        if df_saved:
+            print('> Dataframes saved!')
 
     def get_xml_file_list(self, dir_name):
         """

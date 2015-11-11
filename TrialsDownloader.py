@@ -15,6 +15,7 @@ import requests
 import os
 import zipfile
 import errno
+import shutil
 
 
 BASE_PATH = os.path.dirname(
@@ -113,14 +114,15 @@ class TrialsDownloader(object):
 
         downloaded_dir = self.extract_zip_contents(full_destination)
 
-        print(
-            '> Results for parameters "{}" stored in /downloads/{}/'
-            .format(criteria, downloaded_dir)
-        )
+        if downloaded_dir is not None:
+            print(
+                '> Results for parameters "{}" stored in /downloads/{}/'
+                .format(criteria, downloaded_dir)
+            )
 
-        self.relative_download_dirs.append(
-            downloaded_dir
-        )
+            self.relative_download_dirs.append(
+                downloaded_dir
+            )
 
         os.remove(full_destination)
 
@@ -155,13 +157,25 @@ class TrialsDownloader(object):
         given location to a folder named accordingly in the
         /downloads/ folder.
         """
+        results_not_found = False
         try:
             with open(path, 'rb') as saved_zip:
                 DESTINATION_DIR = path.replace('.zip', '')
                 self.make_sure_path_exists(DESTINATION_DIR)
 
-                zf = zipfile.ZipFile(saved_zip)
-                zf.extractall(DESTINATION_DIR)
+                try:
+                    zf = zipfile.ZipFile(saved_zip)
+                    zf.extractall(DESTINATION_DIR)
+                except zipfile.BadZipFile:
+                    # os.remove(path)
+                    # os.
+                    results_not_found = True
+                    print("""
+                        It appears as if there are no results for {}.
+                        Cleaning up the folder set aside for the results...
+                        """.format(DESTINATION_DIR.split('/')[-1]))
+                    shutil.rmtree(DESTINATION_DIR)
+                    return None
 
                 return os.path.basename(DESTINATION_DIR)
         except IOError:
