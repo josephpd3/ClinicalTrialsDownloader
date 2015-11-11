@@ -156,6 +156,15 @@ class TrialsDownloader(object):
         Extracts the contents of the .zip archive at the
         given location to a folder named accordingly in the
         /downloads/ folder.
+
+        Returns the directory name withiin the downloads folder
+        containing the trial data, or None if no zip file has been
+        found.
+
+        TODO: Raise an exception instead of returning None. Also,
+        try and isolate the realization of no results to something
+        not abstractually designated for extracting the contents
+        of a zip file. That could be confusing.
         """
         results_not_found = False
         try:
